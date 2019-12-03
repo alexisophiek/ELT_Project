@@ -20,6 +20,7 @@ div {
 }
 .card-body {
     padding-top:40px;
+    color:#293e5a;
 }
 .navbar {
     position: fixed;
@@ -62,11 +63,24 @@ div {
 .dropdown-menu {
     border:none;
 }
+
+#powered-title {
+    color:#ffffff;
+    font-size:18px;
+    padding-top:0px;
+    padding-bottom:45px;
+}
+
+#spotify-logo {
+    max-width:30%;
+    height:auto;
+}
+
 .footer {
     position: fixed;
     left: 0;
     bottom: 0;
-    padding:50px;
+    padding:10px;
     width: 100%;
     border-top-style: solid;
     background-color: rgb(66, 110, 168);

@@ -24,6 +24,7 @@
                   <li class="nav-item active">
                         <li class="nav-item"><a class="nav-link" href="proposalpage.html">Proposal</a></li>
                         <li class="nav-item"><a class="nav-link" href="report.html">Report</a></li>
+                        <li class="nav-item"><a class="nav-link" href="https://github.com/alexisophiek/ETL_Project">GitHub Repository</a></li>
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
                                 <span class="navbar-toggler-icon"></span>
                             </button>
@@ -35,7 +36,7 @@
                                         <a class="nav-link" href="Billboard_Scrape.html">WebScraping > PGAdmin</a>
                                         <a class="nav-link" href="Spotify_Top_Streams.html">CSV > PGAdmin</a>
                                         <a class="nav-link" href="US_TopTen_fromDB.html">Billboard 2017 Graph</a>
-                                        <a class="nav-link" href="#">Country Comparison Graph</a>
+                                        <a class="nav-link" href="SpotifyStreams_v_BillboardTop.html">Country Comparison Graph</a>
                                     </div>
                                 </li>
                             </ul>
@@ -59,27 +60,65 @@
                     We initially believed we could use get Year to Date data utilizing the Billboard API, Apple Music API, and Spotify API.
                     It became apparent that some of these API's required more advanced credentials and/or were more geared toward Music Player Embedding or Customer Experience Development.
                     We were able to find a CSV with Spotify's top Streamed Songs across multiple years.  Additionally, we utilized webscraping to pull info for a matching year from Billboard's Year-End Hot 100 Charts.
-                    <br><p>
-                    The webscraping of Billboards website was straightforward.  We utilized the Requests Library and Beautiful Soup to read the HTML and parse through the data on the page.
+                    <br>
+                    The webscraping of Billboards website was straightforward.  We utilized the Requests Library and BeautifulSoup to read the HTML and parse through the data on the page.
                     We wrote a function to pull out the Rank Number, Artist, and Song for each entity in the charted list.
                     <br>
-                    <p>
                     For the Spotify CSV, we read in and broke down the Spotify CSV into smalled CSV's.  Afterwards, we came back in and revised the code to drop a clean version of the data into our Postgres SQL Database.
                     The goal is that both the CSV Data and the Webscraped Billboard Data would be in similarly stripped down forms so as to be able to make calls and reference the data (ranking, artist, track, and number of streams) more easily.
                     </p>
-
-                    <h2>Transform</h2>
-                    <br>
-                    <p>
-                    
-                        </p>   
-                    <br>   
-                    <h2>Load</h2>
-                    <br>
-                    <p>
-                    We started this project with the result of wanting to make calls from Postgres SQL in order to directly compare the top ten from Billboard with the top ten most
-                    </p>
                     <div class="row">
+                        <div class="col-md-12">
+                    <h2>Transform</h2>
+                    <p>
+                    The Spofity Raw data had the following columns: Position, Track Name, Artist, Streams, URL, Date, and Region.
+                    The Billboard webscraping data had the following columns: artist, rank, and track.
+                    While looking at the two sources of data; Billboards webscraping and Spotify's raw data csv there are similar columns like Artist and artist, and Track Name and track.
+                    Initially we had created a new column by using a concat function to combine and relabel a new column, "Artist_and_Track_Name."  This proved to be difficult with postgres not reading out capital letter'd new column (lol).  
+                    <br>
+                    Not only that, but there were issues with the 'track' and the 'Track Name'; Although talking about the same instance, the spellings were often different and with special characters like the apostrophe's and parantheses.  
+                    We had to keep the data super basic and less complicated so that postgres wouldn't give us any errors.
+                    <br>
+                    This is more in line with breaking down tables into normal forms, so we were okay with the leaving these Data sets as simple as possible.
+                    </p>
+                        </div>
+                    </div>  
+                    <div class="row">
+                        <div class="col-md-12">                    
+                            <h2>Load</h2>
+                                <p>
+                    We started this project with the result of wanting to make calls from Postgres SQL in order to directly compare the top ten from Billboard with how and by region those songs rank amoung differrent countries.
+                    For instance we wanted to see how Ed Sheerans' Shape of You, which is ranked number 2 on Billboards Streaming Top Ten of 2017, and see where it ranked amoung different countries.  We were able to do this easily in pandas,
+                    but had trouble with the tranformation of our data.  With our ambition crumbling from the transfromation process, we were still able to load data that would allow us to see streamings songs per country respectively.                   
+                                </p>  
+                        </div>
+                    </div>  
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <img class="mx-auto d-block" src="Images/Positions.png" alt="Spotify VS Billboard Rankings" width="1150px">
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-md-12">
+                        <br>
+                            <h2>Conclusion</h2>
+                                <p>
+                    One of the primary items we could have handled differently, would be pushing through to acquire the exact data we wanted, either by used of API's or by some other avenue.
+                    Additionally, part of the initial cleaning would be to match song titles and replace so that song titles spelling and syntax matched across all possible Data Sets.  Having done this, we could have
+                    made more complex calls directly from Postgres SQL to find the Data we needed for munging, comparison, and analysis.
+                                </p>
+                                <hr>
+                    <div class="row">
+                        <img class="mx-auto d-block" src="Images/US_Spotify_TopTen.png" alt="Spotify's Top Ten">
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <img class="mx-auto d-block" src="Images/BarTopTenvssixcountries.png" alt="Country Streams Comparisom">
+                    </div>
+                    </p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -89,5 +128,5 @@
     </div>
     </footer>
 </body>
-
+</main>
 </html>
